@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ML Callback</title>
+  <style>
+    body{font-family:Arial,system-ui;margin:24px}
+    code{word-break:break-all;background:#f3f3f3;padding:8px;display:block;border-radius:8px}
+    .ok{color:green;font-weight:700}
+  </style>
+</head>
+<body>
+  <h2>✅ Callback Mercado Livre</h2>
+  <p id="msg">Lendo parâmetros...</p>
+  <p><b>code:</b></p>
+  <code id="code">---</code>
+
+  <script>
+    const p = new URLSearchParams(location.search);
+    const code = p.get("code");
+    const err = p.get("error");
+    const desc = p.get("error_description");
+    const elMsg = document.getElementById("msg");
+    const elCode = document.getElementById("code");
+
+    if (err) {
+      elMsg.innerHTML = "❌ Erro: <b>" + err + "</b><br/>" + (desc || "");
+      elCode.textContent = "";
+    } else if (!code) {
+      elMsg.textContent = "Sem code na URL. Use o link de login do bot e autorize.";
+      elCode.textContent = "";
+    } else {
+      elMsg.innerHTML = "<span class='ok'>OK!</span> Copie o code abaixo e envie no Telegram: <b>/mlcode SEU_CODE</b>";
+      elCode.textContent = code;
+    }
+  </script>
+</body>
+</html>
